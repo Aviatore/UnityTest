@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
         
         
         // Points and lives calculation
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             // Initiate start lives number
             DataStore.StartLives = liveNumber;
@@ -135,13 +135,11 @@ public class Player : MonoBehaviour
         {
             transform.Rotate(Vector3.up, 180.0f);
             _lookRight = true;
-            OnTurn?.Invoke(this, EventArgs.Empty);
         }
         else if (_horizontalInput > 0 && _lookRight)
         {
             transform.Rotate(Vector3.up, 180.0f);
             _lookRight = false;
-            OnTurn?.Invoke(this, EventArgs.Empty);
         }
 
         var overlapedGameObjects = Physics.OverlapSphere(groundCheck.position, 0.1f, playerMask).Length;

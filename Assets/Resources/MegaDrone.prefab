@@ -115,7 +115,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   shootTimeRangeFrom: 0.2
   shootTimeRangeTo: 0.5
-  hitPoints: 10
+  hitPoints: 14
   maxMoveY: 1.5
   moveSpeed: 2.5
   maxMoveX: 1.5

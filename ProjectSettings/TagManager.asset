@@ -18,6 +18,7 @@ TagManager:
   - DoorPlatform
   - HorizontalDoorPlatform
   - Background
+  - CameraBox
   layers:
   - Default
   - TransparentFX

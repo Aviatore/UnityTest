@@ -114,9 +114,9 @@ MonoBehaviour:
   droneExplosion: {fileID: 6635074962740826928, guid: 3b4a508d232ff4c41962ef6d6df3cf6b,
     type: 3}
   canvas: {fileID: 0}
-  shootTimeRangeFrom: 2
-  shootTimeRangeTo: 4
-  hitPoints: 1
+  shootTimeRangeFrom: 1.5
+  shootTimeRangeTo: 2
+  hitPoints: 2
 --- !u!1 &5661618171470338868
 GameObject:
   m_ObjectHideFlags: 0
