@@ -19,6 +19,7 @@ TagManager:
   - HorizontalDoorPlatform
   - Background
   - CameraBox
+  - drone
   layers:
   - Default
   - TransparentFX

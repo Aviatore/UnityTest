@@ -40,6 +40,7 @@ namespace Spawner
         {
             GameObjects = new Dictionary<string, GameObject>();
             GameObjects.Add("Drone", drone);
+            GameObjects.Add("SuperDrone", drone);
 
             Vector3 position = new Vector3(2.27f, 0.8f, 0.4f);
 
@@ -47,10 +48,10 @@ namespace Spawner
             newPlayer.transform.Rotate(Vector3.up, 90.0f);
             
             cameraBoxScript.Player = newPlayer.transform;
-
-            DroneController droneController = drone.GetComponent<DroneController>();
-            droneController.canvas = canvas.GetComponent<Canvas>();
             
+            drone.GetComponent<DroneController>().canvas = canvas.GetComponent<Canvas>();
+            superDrone.GetComponent<SuperDroneController>().canvas = canvas.GetComponent<Canvas>();
+
             SpawnDrones();
         }
 
@@ -67,8 +68,15 @@ namespace Spawner
             Debug.Log($"Count: {positions.Count.ToString()}");
             foreach (var god in positions)
             {
-                DroneData dd = god as DroneData;
-                Debug.Log(dd);
+                switch (god)
+                {
+                    case DroneData droneData:
+                        Debug.Log(droneData);
+                        break;
+                    case SuperDroneData droneData:
+                        Debug.Log(droneData);
+                        break;
+                }
             }
         }
 
@@ -79,14 +87,18 @@ namespace Spawner
                 "Level",
                 "BridgeS01"
             };
+            List<string> parents2 = new List<string>()
+            {
+                "Level",
+            };
 
             List<GameObjectData> positions3 = new List<GameObjectData>();
             Vector3 dronePosition2 = new Vector3(0.29f, 1.75f, 0.0f);
             DroneData drone2 = new DroneData(drone, dronePosition2, parents, 1.5f, 2.0f, 2);
             positions3.Add(drone2);
             
-            Vector3 dronePosition3 = new Vector3(1.57f, 1.75f, 0.0f);
-            DroneData drone3 = new DroneData(drone, dronePosition3, parents, 3.0f, 4.0f, 4);
+            Vector3 dronePosition3 = new Vector3(13.33f, 12.46f, 0.0f);
+            SuperDroneData drone3 = new SuperDroneData(superDrone, dronePosition3, parents2, 3.0f, 4.0f, 4, 1.0f, 2.0f);
             positions3.Add(drone3);
             
             foreach (var gObject in positions3)
@@ -114,8 +126,7 @@ namespace Spawner
             {
                 var child = parent.GetChild(i);
                 string gameObjectName = child.gameObject.name;
-                //Debug.Log(gameObjectName);
-                
+
                 if (child.childCount > 0 && !GameObjects.ContainsKey(gameObjectName))
                 {
                     GetPositions(ref positions, child, parents);
@@ -135,6 +146,16 @@ namespace Spawner
                                     shotTimeRangeTo, hitPoints);
                                 
                                 positions.Add(droneData);
+                                
+                                break;
+                            case ("SuperDrone"):
+                                (Vector3 superDronePosition, float superDroneShotTimeRangeFrom, float superDroneShotTimeRangeTo, int superDroneHitPoints, float maxMoveY, float moveSpeed) =
+                                    SuperDroneData.GetSuperDroneParameters(child);
+                                
+                                SuperDroneData superDroneData = new SuperDroneData(superDrone, superDronePosition, parents, superDroneShotTimeRangeFrom,
+                                    superDroneShotTimeRangeTo, superDroneHitPoints, maxMoveY, moveSpeed);
+                                
+                                positions.Add(superDroneData);
                                 
                                 break;
                         }

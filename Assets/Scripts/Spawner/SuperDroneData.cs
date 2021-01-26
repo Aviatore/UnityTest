@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -35,6 +37,32 @@ namespace Spawner
             _superDroneController.hitPoints = _hitPoints;
             _superDroneController.maxMoveY = _maxMoveY;
             _superDroneController.moveSpeed = _moveSpeed;
+        }
+        
+        public static (Vector3, float, float, int, float, float) GetSuperDroneParameters(Transform superDrone)
+        {
+            SuperDroneController droneController = superDrone.gameObject.GetComponent<SuperDroneController>();
+            
+            Vector3 position = superDrone.position;
+            float shotTimeRangeFrom = droneController.shootTimeRangeFrom;
+            float shotTimeRangeTo = droneController.shootTimeRangeTo;
+            int hitPoints = droneController.hitPoints;
+            float maxMoveY = droneController.maxMoveY;
+            float moveSpeed = droneController.moveSpeed;
+
+            return (position, shotTimeRangeFrom, shotTimeRangeTo, hitPoints, maxMoveY, moveSpeed);
+        }
+        
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            sb.Append($"Object name: {Go.name}; ");
+            sb.Append($"ShotTimeRangeFrom: {_shotTimeRangeFrom.ToString()}; ");
+            sb.Append($"ShotTimeRangeTo: {_shotTimeRangeTo.ToString()}; ");
+            sb.Append($"HitPoints: {_hitPoints.ToString()}; ");
+
+            return sb.ToString();
         }
     }
 }

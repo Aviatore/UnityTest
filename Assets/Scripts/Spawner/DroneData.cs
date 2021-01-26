@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 using DefaultNamespace;
@@ -24,6 +25,10 @@ namespace Spawner
             _hitPoints = hitPoints;
         }
         
+        /// <summary>
+        /// The method must be executed before spawning an object.
+        /// The method updates 
+        /// </summary>
         public override void UpdateGoData()
         {
             _droneController.shootTimeRangeFrom = _shotTimeRangeFrom;
