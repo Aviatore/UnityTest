@@ -10968,6 +10968,7 @@ MonoBehaviour:
     type: 3}
   megaDrone: {fileID: 5146898364269352699, guid: 7643635d3c4154e2abb1dc45e3fa91b0,
     type: 3}
+  cameraBoxScript: {fileID: 317059056}
 --- !u!4 &1577287072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1377788337546089565, guid: f31c6b692ccef41908278cdfe8895c78,
