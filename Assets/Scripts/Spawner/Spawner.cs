@@ -52,6 +52,8 @@ namespace Spawner
             GameObjects.Add("PointWidgetM", pointWidgetM);
             GameObjects.Add("PointWidgetL", pointWidgetL);
             GameObjects.Add("PointWidgetXL", pointWidgetXl);
+            
+            GameObjects.Add("Chip", chip);
 
             Vector3 position = new Vector3(2.27f, 0.8f, 0.4f);
 
@@ -96,6 +98,9 @@ namespace Spawner
                         break;
                     case PointWidgetData pointWidgetData:
                         Debug.Log(pointWidgetData);
+                        break;
+                    case ChipData chipData:
+                        Debug.Log(chipData);
                         break;
                 }
             }
@@ -274,6 +279,16 @@ namespace Spawner
                                     pointWidgetXlPosition, parents, widgetPointsXl);
                                 
                                 positions.Add(pointWidgetXlData);
+                                
+                                break;
+                            case ("Chip"):
+                                (Vector3 chipPosition, string itemName, int itemQuantity) =
+                                    ChipData.GetChipParameters(child);
+                                
+                                ChipData chipData = new ChipData(chip,
+                                    chipPosition, parents, itemName, itemQuantity);
+                                
+                                positions.Add(chipData);
                                 
                                 break;
                         }
