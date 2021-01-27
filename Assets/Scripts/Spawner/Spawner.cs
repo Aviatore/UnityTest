@@ -42,6 +42,10 @@ namespace Spawner
             GameObjects.Add("Drone", drone);
             GameObjects.Add("SuperDrone", superDrone);
             GameObjects.Add("MegaDrone", megaDrone);
+            GameObjects.Add("FirstAidKitBiohazard", firstAidKitBiohazard);
+            GameObjects.Add("FirstAidKitGreen", firstAidKitGreen);
+            GameObjects.Add("FirstAidKitRed", firstAidKitRed);
+            GameObjects.Add("FirstAidKitWhite", firstAidKitWhite);
 
             Vector3 position = new Vector3(2.27f, 0.8f, 0.4f);
 
@@ -75,11 +79,14 @@ namespace Spawner
                     case DroneData droneData:
                         Debug.Log(droneData);
                         break;
-                    case SuperDroneData droneData:
-                        Debug.Log(droneData);
+                    case SuperDroneData superDroneData:
+                        Debug.Log(superDroneData);
                         break;
-                    case MegaDroneData droneData:
-                        Debug.Log(droneData);
+                    case MegaDroneData megaDroneData:
+                        Debug.Log(megaDroneData);
+                        break;
+                    case FirstAidKitData firstAidKitData:
+                        Debug.Log(firstAidKitData);
                         break;
                 }
             }
@@ -165,6 +172,59 @@ namespace Spawner
                                     superDroneShotTimeRangeTo, superDroneHitPoints, maxMoveY, moveSpeed);
                                 
                                 positions.Add(superDroneData);
+                                
+                                break;
+                            case ("MegaDrone"):
+                                (Vector3 megaDronePosition, float megaDroneShotTimeRangeFrom,
+                                        float megaDroneShotTimeRangeTo, int megaDroneHitPoints, float megaMaxMoveY,
+                                        float megaMoveSpeed, float megaMaxMoveX) =
+                                    MegaDroneData.GetMegaDroneParameters(child);
+                                
+                                MegaDroneData megaDroneData = new MegaDroneData(superDrone, megaDronePosition, parents,
+                                    megaDroneShotTimeRangeFrom,
+                                    megaDroneShotTimeRangeTo, megaDroneHitPoints, megaMaxMoveY, megaMoveSpeed, megaMaxMoveX);
+                                
+                                positions.Add(megaDroneData);
+                                
+                                break;
+                            case ("FirstAidKitBiohazard"):
+                                (Vector3 firstAidKitBiohazardPosition, int hitPointRecovery) =
+                                    FirstAidKitData.GetFirstAidKitParameters(child);
+                                
+                                FirstAidKitData firstAidKitBiohazardData = new FirstAidKitData(firstAidKitBiohazard,
+                                    firstAidKitBiohazardPosition, parents, hitPointRecovery);
+                                
+                                positions.Add(firstAidKitBiohazardData);
+                                
+                                break;
+                            case ("FirstAidKitGreen"):
+                                (Vector3 firstAidKitGreenPosition, int hitPointRecoveryGreen) =
+                                    FirstAidKitData.GetFirstAidKitParameters(child);
+                                
+                                FirstAidKitData firstAidKitGreenData = new FirstAidKitData(firstAidKitGreen,
+                                    firstAidKitGreenPosition, parents, hitPointRecoveryGreen);
+                                
+                                positions.Add(firstAidKitGreenData);
+                                
+                                break;
+                            case ("FirstAidKitRed"):
+                                (Vector3 firstAidKitRedPosition, int hitPointRecoveryRed) =
+                                    FirstAidKitData.GetFirstAidKitParameters(child);
+                                
+                                FirstAidKitData firstAidKitRedData = new FirstAidKitData(firstAidKitGreen,
+                                    firstAidKitRedPosition, parents, hitPointRecoveryRed);
+                                
+                                positions.Add(firstAidKitRedData);
+                                
+                                break;
+                            case ("FirstAidKitWhite"):
+                                (Vector3 firstAidKitWhitePosition, int hitPointRecoveryWhite) =
+                                    FirstAidKitData.GetFirstAidKitParameters(child);
+                                
+                                FirstAidKitData firstAidKitWhiteData = new FirstAidKitData(firstAidKitGreen,
+                                    firstAidKitWhitePosition, parents, hitPointRecoveryWhite);
+                                
+                                positions.Add(firstAidKitWhiteData);
                                 
                                 break;
                         }
