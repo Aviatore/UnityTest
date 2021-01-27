@@ -42,10 +42,16 @@ namespace Spawner
             GameObjects.Add("Drone", drone);
             GameObjects.Add("SuperDrone", superDrone);
             GameObjects.Add("MegaDrone", megaDrone);
+            
             GameObjects.Add("FirstAidKitBiohazard", firstAidKitBiohazard);
             GameObjects.Add("FirstAidKitGreen", firstAidKitGreen);
             GameObjects.Add("FirstAidKitRed", firstAidKitRed);
             GameObjects.Add("FirstAidKitWhite", firstAidKitWhite);
+            
+            GameObjects.Add("PointWidgetS", pointWidgetS);
+            GameObjects.Add("PointWidgetM", pointWidgetM);
+            GameObjects.Add("PointWidgetL", pointWidgetL);
+            GameObjects.Add("PointWidgetXL", pointWidgetXl);
 
             Vector3 position = new Vector3(2.27f, 0.8f, 0.4f);
 
@@ -87,6 +93,9 @@ namespace Spawner
                         break;
                     case FirstAidKitData firstAidKitData:
                         Debug.Log(firstAidKitData);
+                        break;
+                    case PointWidgetData pointWidgetData:
+                        Debug.Log(pointWidgetData);
                         break;
                 }
             }
@@ -225,6 +234,46 @@ namespace Spawner
                                     firstAidKitWhitePosition, parents, hitPointRecoveryWhite);
                                 
                                 positions.Add(firstAidKitWhiteData);
+                                
+                                break;
+                            case ("PointWidgetS"):
+                                (Vector3 pointWidgetSPosition, int widgetPointsS) =
+                                    PointWidgetData.GetPointWidgetParameters(child);
+                                
+                                PointWidgetData pointWidgetSData = new PointWidgetData(pointWidgetS,
+                                    pointWidgetSPosition, parents, widgetPointsS);
+                                
+                                positions.Add(pointWidgetSData);
+                                
+                                break;
+                            case ("PointWidgetM"):
+                                (Vector3 pointWidgetMPosition, int widgetPointsM) =
+                                    PointWidgetData.GetPointWidgetParameters(child);
+                                
+                                PointWidgetData pointWidgetMData = new PointWidgetData(pointWidgetM,
+                                    pointWidgetMPosition, parents, widgetPointsM);
+                                
+                                positions.Add(pointWidgetMData);
+                                
+                                break;
+                            case ("PointWidgetL"):
+                                (Vector3 pointWidgetLPosition, int widgetPointsL) =
+                                    PointWidgetData.GetPointWidgetParameters(child);
+                                
+                                PointWidgetData pointWidgetLData = new PointWidgetData(pointWidgetL,
+                                    pointWidgetLPosition, parents, widgetPointsL);
+                                
+                                positions.Add(pointWidgetLData);
+                                
+                                break;
+                            case ("PointWidgetXL"):
+                                (Vector3 pointWidgetXlPosition, int widgetPointsXl) =
+                                    PointWidgetData.GetPointWidgetParameters(child);
+                                
+                                PointWidgetData pointWidgetXlData = new PointWidgetData(pointWidgetXl,
+                                    pointWidgetXlPosition, parents, widgetPointsXl);
+                                
+                                positions.Add(pointWidgetXlData);
                                 
                                 break;
                         }
