@@ -5079,12 +5079,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1113523464}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &868894440 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 865075587659297143, guid: 1bfa731ffc4bb06a293c6284910c1283,
-    type: 3}
-  m_PrefabInstance: {fileID: 507998593}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &884785300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10275,7 +10269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e4bf3761214dbf815d16d648c8d4df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 868894440}
+  canvas: {fileID: 159941739}
   player: {fileID: 6129558820902908772, guid: c639800023ff9058ea0eab066fd8b114, type: 3}
   pointWidgetS: {fileID: 51904002407191260, guid: 735acf7320d3e4c15b51a9b09c4ee6f6,
     type: 3}

@@ -9,7 +9,7 @@ namespace Spawner
 {
     public class Spawner : MonoBehaviour
     {
-        public GameObject canvas;
+        public Canvas canvas;
         public GameObject player;
         public GameObject pointWidgetS;
         public GameObject pointWidgetM;
@@ -40,7 +40,8 @@ namespace Spawner
         {
             GameObjects = new Dictionary<string, GameObject>();
             GameObjects.Add("Drone", drone);
-            GameObjects.Add("SuperDrone", drone);
+            GameObjects.Add("SuperDrone", superDrone);
+            GameObjects.Add("MegaDrone", megaDrone);
 
             Vector3 position = new Vector3(2.27f, 0.8f, 0.4f);
 
@@ -48,9 +49,10 @@ namespace Spawner
             newPlayer.transform.Rotate(Vector3.up, 90.0f);
             
             cameraBoxScript.Player = newPlayer.transform;
-            
-            drone.GetComponent<DroneController>().canvas = canvas.GetComponent<Canvas>();
-            superDrone.GetComponent<SuperDroneController>().canvas = canvas.GetComponent<Canvas>();
+
+            drone.GetComponent<DroneController>().canvas = canvas;
+            superDrone.GetComponent<SuperDroneController>().canvas = canvas;
+            megaDrone.GetComponent<MegaDroneController>().canvas = canvas;
 
             SpawnDrones();
         }
@@ -74,6 +76,9 @@ namespace Spawner
                         Debug.Log(droneData);
                         break;
                     case SuperDroneData droneData:
+                        Debug.Log(droneData);
+                        break;
+                    case MegaDroneData droneData:
                         Debug.Log(droneData);
                         break;
                 }
@@ -100,6 +105,10 @@ namespace Spawner
             Vector3 dronePosition3 = new Vector3(13.33f, 12.46f, 0.0f);
             SuperDroneData drone3 = new SuperDroneData(superDrone, dronePosition3, parents2, 3.0f, 4.0f, 4, 1.0f, 2.0f);
             positions3.Add(drone3);
+            
+            Vector3 dronePosition4 = new Vector3(19.3f, 1.49f, 0.0f);
+            MegaDroneData drone4 = new MegaDroneData(megaDrone, dronePosition4, parents2, 3.0f, 4.0f, 4, 1.0f, 2.0f, 1.5f);
+            positions3.Add(drone4);
             
             foreach (var gObject in positions3)
             {

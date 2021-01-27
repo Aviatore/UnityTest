@@ -41,14 +41,14 @@ namespace Spawner
         
         public static (Vector3, float, float, int, float, float) GetSuperDroneParameters(Transform superDrone)
         {
-            SuperDroneController droneController = superDrone.gameObject.GetComponent<SuperDroneController>();
+            SuperDroneController superDroneController = superDrone.gameObject.GetComponent<SuperDroneController>();
             
             Vector3 position = superDrone.position;
-            float shotTimeRangeFrom = droneController.shootTimeRangeFrom;
-            float shotTimeRangeTo = droneController.shootTimeRangeTo;
-            int hitPoints = droneController.hitPoints;
-            float maxMoveY = droneController.maxMoveY;
-            float moveSpeed = droneController.moveSpeed;
+            float shotTimeRangeFrom = superDroneController.shootTimeRangeFrom;
+            float shotTimeRangeTo = superDroneController.shootTimeRangeTo;
+            int hitPoints = superDroneController.hitPoints;
+            float maxMoveY = superDroneController.maxMoveY;
+            float moveSpeed = superDroneController.moveSpeed;
 
             return (position, shotTimeRangeFrom, shotTimeRangeTo, hitPoints, maxMoveY, moveSpeed);
         }
@@ -61,6 +61,8 @@ namespace Spawner
             sb.Append($"ShotTimeRangeFrom: {_shotTimeRangeFrom.ToString()}; ");
             sb.Append($"ShotTimeRangeTo: {_shotTimeRangeTo.ToString()}; ");
             sb.Append($"HitPoints: {_hitPoints.ToString()}; ");
+            sb.Append($"MaxMoveY: {_maxMoveY.ToString()}; ");
+            sb.Append($"MoveSpeed: {_moveSpeed.ToString()}; ");
 
             return sb.ToString();
         }
