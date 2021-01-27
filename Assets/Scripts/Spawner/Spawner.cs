@@ -54,18 +54,39 @@ namespace Spawner
             GameObjects.Add("PointWidgetXL", pointWidgetXl);
             
             GameObjects.Add("Chip", chip);
+            
+            GameObjects.Add("Player", player);
 
-            Vector3 position = new Vector3(2.27f, 0.8f, 0.4f);
+            /*Vector3 position = new Vector3(2.27f, 0.8f, 0.4f);
 
             var newPlayer = Instantiate(player, position, Quaternion.identity);
             newPlayer.transform.Rotate(Vector3.up, 90.0f);
             
-            cameraBoxScript.Player = newPlayer.transform;
+            cameraBoxScript.Player = newPlayer.transform;*/
 
             drone.GetComponent<DroneController>().canvas = canvas;
             superDrone.GetComponent<SuperDroneController>().canvas = canvas;
             megaDrone.GetComponent<MegaDroneController>().canvas = canvas;
 
+            
+            List<string> parents = new List<string>()
+            {
+                "Level",
+            };
+            
+            Vector3 playerPosition = new Vector3(2.27f, 0.8f, 0.4f);
+            PlayerData playerData = new PlayerData(player, playerPosition, parents, 50.0f, 5);
+            
+            playerData.UpdateGoData();
+            var newPlayerObject = Instantiate(playerData.Go, playerData.Position, Quaternion.identity);
+                
+            GameObject parent = GetParent(playerData.Parents);
+            newPlayerObject.transform.SetParent(parent.transform);
+            newPlayerObject.transform.localPosition = playerData.Position;
+            newPlayerObject.name = playerData.Go.name;
+            newPlayerObject.transform.Rotate(Vector3.up, 90.0f);
+            cameraBoxScript.Player = newPlayerObject.transform;
+            
             SpawnDrones();
         }
 
@@ -101,6 +122,9 @@ namespace Spawner
                         break;
                     case ChipData chipData:
                         Debug.Log(chipData);
+                        break;
+                    case PlayerData playerData:
+                        Debug.Log(playerData);
                         break;
                 }
             }
@@ -290,6 +314,16 @@ namespace Spawner
                                 
                                 positions.Add(chipData);
                                 
+                                break;
+                            case ("Player"):
+                                (Vector3 playerPosition, float livePoints, int liveNumber) =
+                                    PlayerData.GetPlayerParameters(child);
+                                
+                                PlayerData playerData = new PlayerData(player,
+                                    playerPosition, parents, livePoints, liveNumber);
+                                
+                                positions.Add(playerData);
+
                                 break;
                         }
                     }
