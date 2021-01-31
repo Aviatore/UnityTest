@@ -15,10 +15,7 @@ namespace DefaultNamespace
         
         private void Start()
         {
-            Spawner.Spawner.SceneSaveIdToLoad = 0;
-                
-            //_sqlSaveScore = gameObject.AddComponent<SqlSaveScoreDAO>();
-            _sqlSaveScore = new SqlSaveScoreDAO();
+            _sqlSaveScore = gameObject.AddComponent<SqlSaveScoreDAO>();
             _items = _sqlSaveScore.GetMenuItems();
 
             var dropdownGameObject = GameObject.Find("/UILoadMenu/SavedDropdown");
@@ -38,14 +35,13 @@ namespace DefaultNamespace
                 var data = item.Key.Split('-');
                 var saveId = Int32.Parse(data[0]);
 
-                if (saveId > 2 && j <= noStoredLastSaves - 1)
+                if (saveId > 1 && j <= noStoredLastSaves - 1)
                 {
                     dropdown.options.Add(new TMP_Dropdown.OptionData() {text = item.Value});
                     j++;
                 }
-                else if (saveId > 2)
+                else if (saveId > 1)
                 {
-                    dropdown.captionText.text = "Select a save...";
                     _sqlSaveScore.DeleteSave(saveId);
                 }
             }
@@ -68,9 +64,7 @@ namespace DefaultNamespace
                 var saveId = Int32.Parse(data[0]);
                 var sceneId = Int32.Parse(data[1]);
                 
-                //_sqlSaveScore.Load(saveId);
-                Spawner.Spawner.SceneSaveIdToLoad = saveId;
-                
+                _sqlSaveScore.Load(saveId);
                 SceneManager.LoadScene(sceneId);
             }
         }

@@ -30,10 +30,6 @@ namespace Spawner
         public GameObject megaDrone;
         public CameraController cameraBoxScript;
 
-        public int defaultSceneSaveId;
-        
-        public static int SceneSaveIdToLoad { get; set; }
-
         private List<Vector3> _drones;
         private List<Vector3> _superDrones;
         private List<Vector3> _megaDrones;
@@ -73,12 +69,13 @@ namespace Spawner
             superDrone.GetComponent<SuperDroneController>().canvas = canvas;
             megaDrone.GetComponent<MegaDroneController>().canvas = canvas;
 
-            /*List<string> parents = new List<string>()
+            
+            List<string> parents = new List<string>()
             {
                 "Level",
             };
             
-            Vector3 playerPosition = new Vector3(2.27f, 0.51f, 0.0f);
+            Vector3 playerPosition = new Vector3(2.27f, 0.8f, 0.4f);
             PlayerData playerData = new PlayerData(player, playerPosition, parents, 50.0f, 5);
             
             playerData.UpdateGoData();
@@ -89,25 +86,14 @@ namespace Spawner
             newPlayerObject.transform.localPosition = playerData.Position;
             newPlayerObject.name = playerData.Go.name;
             newPlayerObject.transform.Rotate(Vector3.up, 90.0f);
-            cameraBoxScript.Player = newPlayerObject.transform;*/
+            cameraBoxScript.Player = newPlayerObject.transform;
             
-            if (SceneSaveIdToLoad > 2)
-            {
-                Debug.Log($"Load {SceneSaveIdToLoad.ToString()} id");
-                LoadGameObjects(SceneSaveIdToLoad, false);
-            }
-            else
-            {
-                Debug.Log($"Load default scene: {defaultSceneSaveId.ToString()}");
-                LoadGameObjects(defaultSceneSaveId, true);
-                SceneSaveIdToLoad = 0;
-            }
+            SpawnDrones();
         }
 
-        //public void Start()
-        public void Save()
+        public void Start()
         {
-            //return;
+            return;
             List<GameObjectData> positions = new List<GameObjectData>();
             List<string> parents = new List<string>()
             {
@@ -116,14 +102,7 @@ namespace Spawner
             Transform level = GameObject.Find("Level").transform;
             GetPositions(ref positions, level, parents);
 
-            SqlDroneDAO sqlDroneDao = new SqlDroneDAO(drone, superDrone, megaDrone);
-            SqlChipDAO sqlChipDao = new SqlChipDAO(chip);
-            SqlFirstAidKitDAO sqlFirstAidKitDao = new SqlFirstAidKitDAO(firstAidKitBiohazard, firstAidKitGreen, firstAidKitRed, firstAidKitWhite);
-            SqlPointWidgetDAO sqlPointWidgetDao = new SqlPointWidgetDAO(pointWidgetS, pointWidgetM, pointWidgetL, pointWidgetXl);
-            SqlPlayerDAO sqlPlayerDao = new SqlPlayerDAO(player);
-            SqlSaveScoreDAO sqlSaveScoreDao = new SqlSaveScoreDAO();
-            sqlSaveScoreDao.Save();
-            
+            SqlDroneDAO sqlDroneDao = new SqlDroneDAO();
             Debug.Log($"Count: {positions.Count.ToString()}");
             foreach (var god in positions)
             {
@@ -143,48 +122,51 @@ namespace Spawner
                         break;
                     case FirstAidKitData firstAidKitData:
                         Debug.Log(firstAidKitData);
-                        sqlFirstAidKitDao.Save(god);
                         break;
                     case PointWidgetData pointWidgetData:
                         Debug.Log(pointWidgetData);
-                        sqlPointWidgetDao.Save(god);
                         break;
                     case ChipData chipData:
                         Debug.Log(chipData);
-                        sqlChipDao.Save(god);
                         break;
                     case PlayerData playerData:
                         Debug.Log(playerData);
-                        sqlPlayerDao.Save(god);
                         break;
                 }
             }
         }
 
-        private void LoadGameObjects(int saveId, bool isDefault)
+        private void SpawnDrones()
         {
-            //return;
-            Debug.Log($"Start loading saveId: {saveId.ToString()}");
-            List<GameObjectData> positions;
-            
-            SqlDroneDAO sqlDroneDao = new SqlDroneDAO(drone, superDrone, megaDrone);
-            SqlChipDAO sqlChipDao = new SqlChipDAO(chip);
-            SqlFirstAidKitDAO sqlFirstAidKitDao = new SqlFirstAidKitDAO(firstAidKitBiohazard, firstAidKitGreen, firstAidKitRed, firstAidKitWhite);
-            SqlPointWidgetDAO sqlPointWidgetDao = new SqlPointWidgetDAO(pointWidgetS, pointWidgetM, pointWidgetL, pointWidgetXl);
-            SqlPlayerDAO sqlPlayerDao = new SqlPlayerDAO(player);
-            SqlSaveScoreDAO sqlSaveScoreDao = new SqlSaveScoreDAO();
-
-            positions = sqlPlayerDao.Load(saveId);
-            positions.AddRange(sqlDroneDao.Load(saveId));
-            positions.AddRange(sqlChipDao.Load(saveId));
-            positions.AddRange(sqlFirstAidKitDao.Load(saveId));
-            positions.AddRange(sqlPointWidgetDao.Load(saveId));
-
-            Debug.Log($"Num of objects: {positions.Count.ToString()}");
-            
-            foreach (var gObject in positions)
+            /*List<string> parents = new List<string>()
             {
-                Debug.Log($"Game Object: {gObject.Go.name}");
+                "Level",
+                "BridgeS01"
+            };
+            List<string> parents2 = new List<string>()
+            {
+                "Level",
+            };
+
+            List<GameObjectData> positions3 = new List<GameObjectData>();
+            Vector3 dronePosition2 = new Vector3(0.29f, 1.75f, 0.0f);
+            DroneData drone2 = new DroneData(drone, dronePosition2, parents, 1.5f, 2.0f, 2);
+            positions3.Add(drone2);
+            
+            Vector3 dronePosition3 = new Vector3(13.33f, 12.46f, 0.0f);
+            SuperDroneData drone3 = new SuperDroneData(superDrone, dronePosition3, parents2, 3.0f, 4.0f, 4, 1.0f, 2.0f);
+            positions3.Add(drone3);
+            
+            Vector3 dronePosition4 = new Vector3(19.3f, 1.49f, 0.0f);
+            MegaDroneData drone4 = new MegaDroneData(megaDrone, dronePosition4, parents2, 3.0f, 4.0f, 4, 1.0f, 2.0f, 1.5f);
+            positions3.Add(drone4);*/
+            
+            
+            SqlDroneDAO sqlDroneDao = new SqlDroneDAO();
+            List<GameObjectData> positions3 = sqlDroneDao.Load(0);
+            
+            foreach (var gObject in positions3)
+            {
                 // Update gameObject prefab's properties
                 gObject.UpdateGoData();
                 
@@ -194,27 +176,11 @@ namespace Spawner
                 newObject.transform.SetParent(parent.transform);
                 newObject.transform.localPosition = gObject.Position;
                 newObject.name = gObject.Go.name;
-
-                if (gObject.Go.name == "Player")
-                {
-                    newObject.transform.Rotate(Vector3.up, 90.0f);
-                    cameraBoxScript.Player = newObject.transform;
-                }
-                else if (gObject.Go.name == "Chip")
-                {
-                    newObject.transform.Rotate(new Vector3(90, 220, 50));
-                }
-            }
-
-            if (!isDefault)
-            {
-                sqlSaveScoreDao.Load(saveId);
             }
         }
 
         private GameObject GetParent(List<string> parents)
         {
-            Debug.Log($"/{String.Join("/", parents)}");
             return GameObject.Find($"/{String.Join("/", parents)}");
         }
 
@@ -360,7 +326,7 @@ namespace Spawner
                                 
                                 break;
                             case ("Player"):
-                                (Vector3 playerPosition, int livePoints, int liveNumber) =
+                                (Vector3 playerPosition, float livePoints, int liveNumber) =
                                     PlayerData.GetPlayerParameters(child);
                                 
                                 PlayerData playerData = new PlayerData(player,

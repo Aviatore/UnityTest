@@ -31,7 +31,7 @@ namespace Spawner
         {
             ChipController chipController = chip.gameObject.GetComponent<ChipController>();
             
-            Vector3 position = chip.localPosition;
+            Vector3 position = chip.position;
             string itemName = chipController.itemName;
             int itemQuantity = chipController.itemQuantity;
 

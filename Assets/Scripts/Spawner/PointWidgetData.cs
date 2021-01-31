@@ -28,7 +28,7 @@ namespace Spawner
         {
             PointWidgetController pointWidgetController = pointWidget.gameObject.GetComponent<PointWidgetController>();
             
-            Vector3 position = pointWidget.localPosition;
+            Vector3 position = pointWidget.position;
             int widgetPoints = pointWidgetController.widgetPoints;
 
             return (position, widgetPoints);

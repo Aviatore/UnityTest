@@ -7,7 +7,7 @@ namespace DefaultNamespace
     public class MainMenuController : MonoBehaviour
     {
         private GameObject _uiLoadMenu;
-        private void Start()
+        private void Awake()
         {
             FindObjectOfType<AudioManager>().PlaySound("BackgroundMusic");
             _uiLoadMenu = GameObject.Find("UILoadMenu");
@@ -21,7 +21,7 @@ namespace DefaultNamespace
 
         public void LoadSavedGameMenu()
         {
-            if (_uiLoadMenu.transform.position.x > -29991)
+            if (_uiLoadMenu.transform.position.x > -29998)
             {
                 _uiLoadMenu.transform.SetParent(transform, false);
             }

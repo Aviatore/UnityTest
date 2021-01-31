@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DefaultNamespace.DAO
 {
-    public class SqlSaveScoreDAO
+    public class SqlSaveScoreDAO : MonoBehaviour
     {
         public static long SaveID { get; private set; }
         
@@ -47,7 +47,6 @@ namespace DefaultNamespace.DAO
                         {
                             ParameterName = "SaveName",
                             Value = DialogExit.SaveNameInputField
-                            //Value = "test_save_ww"
                         });
 
                         cmd.Parameters.Add(new SqliteParameter

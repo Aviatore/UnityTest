@@ -28,7 +28,7 @@ namespace Spawner
         {
             FirstAidKitController firstAidKitController = firstAidKit.gameObject.GetComponent<FirstAidKitController>();
             
-            Vector3 position = firstAidKit.localPosition;
+            Vector3 position = firstAidKit.position;
             int hitPointRecovery = firstAidKitController.hitPointRecovery;
 
             return (position, hitPointRecovery);
